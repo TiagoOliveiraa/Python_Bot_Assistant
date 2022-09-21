@@ -18,6 +18,8 @@ def megane(message):
     Óleo:
     """
 
+    bot.send_message(message.chat.id, text)
+
 @bot.message_handler(commands=["help"])
 def help(message):
     text = """
