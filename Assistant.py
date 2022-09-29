@@ -1,6 +1,6 @@
 import telebot
-import time
-from apscheduler.schedulers.background import BackgroundScheduler
+#import time
+#from apscheduler.schedulers.background import BackgroundScheduler
 #import keys
 
 API_KEY = "5626356982:AAGPdI_laczEEHUzloleQ27KcKgD3akJa8Y"
@@ -75,7 +75,7 @@ def help(message):
     
         /help - Lista de Comandos
         /cars - Comandos de carros        
-        /tasks - Lista de tarefas
+        /task - Lista de tarefas
 Clicar numa das opções acima
         """
 
