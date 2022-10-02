@@ -1,4 +1,5 @@
 import telebot
+from task import *
 #import time
 #from apscheduler.schedulers.background import BackgroundScheduler
 #import keys
@@ -102,49 +103,19 @@ def carro(message):
 def tasks(message):
 
     if "add" in message.text:
-        lista_texto = message.text.split()
-        lista_texto.remove("/task")
-        lista_texto.remove("add")
-        texto = ''.join(map(str, lista_texto))
-
-        file = open('tasks.txt','a+')
-        file.write("%s\n" % texto)
-        file.close()
-
-        bot.reply_to(message, f"Adicionada a tarefa: {texto}")
+        task_add(message,bot)
 
     elif "clear" in message.text:
-        file = open('tasks.txt','a+')
-        file.truncate(0)
-        lista_tarefas.clear()
-
-        bot.send_message(message.chat.id, "Lista de tarefas limpa com sucesso!")
+        task_clear(message,bot,lista_tarefas)
 
     elif "list" in message.text:
-
-        file = open('tasks.txt','r+')
-        for line in file:
-            line = line.strip()
-            lista_tarefas.append(line)
-        file.close()
-
-        text = "Lista de tarefas:"
-        for i in lista_tarefas:
-            text = text + '\n'
-            text = text + str(i)
-
-        bot.send_message(message.chat.id, text)
-
+        task_list(message,bot,lista_tarefas)
+    
+    elif "del" in message.text:
+        task_del(message,bot,lista_tarefas) 
+       
     else:
-
-        general_text = """
-        Comandos Task:
-/task add «Texto» >Adiciona tarefa
-/task clear >Limpa lista de tarefas
-/task list >Lista de tarefas
-        """
-
-        bot.reply_to(message, general_text)
+        task_general(message,bot)
 
 
 def verify(message):
