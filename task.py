@@ -26,7 +26,8 @@ def task_list(message,bot,lista_tarefas):
         file = open('tasks.txt','r+')
         for line in file:
             line = line.strip()
-            lista_tarefas.append(line)
+            if line not in lista_tarefas:
+                lista_tarefas.append(line)
         file.close()
         text = "Lista de tarefas:"
         for i in lista_tarefas:
@@ -47,7 +48,9 @@ def task_general(message,bot):
 
     bot.reply_to(message, general_text)
 
-def task_del(message,bot,lista_tarefas):
+def task_del(message,bot):
+    
+    lista_tarefas = []
     
     lista_texto = message.text.split()
     lista_texto.remove("/task")
@@ -58,21 +61,24 @@ def task_del(message,bot,lista_tarefas):
         with open('tasks.txt','r+') as file:
             for line in file:
                 line = line.strip("\n")
-                if line not in lista_tarefas:
-                    lista_tarefas.append(line)
+                #if line not in lista_tarefas:
+                lista_tarefas.append(line)
         
-            if texto in lista_tarefas:
-                lista_tarefas.remove(texto)
+        if texto in lista_tarefas:
+            lista_tarefas.remove(texto)
+            with open('tasks.txt','w+') as file:
                 file.truncate(0)
+                file.seek(0)
                 for i in lista_tarefas:
                     file.write("%s\n" % i)                    
-                text = f"Task {texto} eliminada com Sucesso."
+            
+            text = f"Task {texto} eliminada com Sucesso."
                     
-                bot.send_message(message.chat.id, text)
-                
-            else:
-                text = "Lamento, essa task não existe."
-                bot.send_message(message.chat.id, text)
+            bot.send_message(message.chat.id, text)
+            
+        else:
+            text = "Lamento, essa task não existe."
+            bot.send_message(message.chat.id, text)
 
     except:
         text = "Lamento, essa task não existe."

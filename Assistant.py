@@ -112,7 +112,7 @@ def tasks(message):
         task_list(message,bot,lista_tarefas)
     
     elif "del" in message.text:
-        task_del(message,bot,lista_tarefas) 
+        task_del(message,bot) 
        
     else:
         task_general(message,bot)
