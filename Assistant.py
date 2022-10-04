@@ -1,12 +1,15 @@
 import telebot
+from apscheduler.schedulers.background import BackgroundScheduler
+#from datetime import datetime
 from task import *
-#import time
-#from apscheduler.schedulers.background import BackgroundScheduler
-#import keys
+import time
+
 
 API_KEY = "5626356982:AAGPdI_laczEEHUzloleQ27KcKgD3akJa8Y"
+TiagoID = 1374815440
 
 bot = telebot.TeleBot(API_KEY)
+
 
 lista_tarefas = []
 
@@ -14,7 +17,11 @@ lista_tarefas = []
 
 def print_teste():
 
-    bot.send_message("Isto é uma mensagem de teste")
+    bot.send_message(TiagoID,"Isto é uma mensagem de teste")
+
+#scheduler = BackgroundScheduler()
+#scheduler.add_job(print_teste,'interval',hours = 24)
+#scheduler.start()
 
 
 @bot.message_handler(commands=["megane"])
@@ -109,7 +116,7 @@ def tasks(message):
         task_clear(message,bot,lista_tarefas)
 
     elif "list" in message.text:
-        task_list(message,bot,lista_tarefas)
+        task_list(message,bot)
     
     elif "del" in message.text:
         task_del(message,bot) 
@@ -123,8 +130,9 @@ def verify(message):
 
 @bot.message_handler(func=verify)
 def answer(message):
-    bot.reply_to(message, "Não conheço esse comando:\n\n /help para comandos")
+    bot.reply_to(message, f"Não conheço esse comando:\n\n /help para comandos")
 
+#bot.send_message(TiagoID,"Teste de entrada")
 
 bot.polling()
 

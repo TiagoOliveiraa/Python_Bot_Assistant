@@ -21,20 +21,20 @@ def task_clear(message,bot,lista_tarefas):
 
     bot.send_message(message.chat.id, "Lista de tarefas limpa com sucesso!")
 
-def task_list(message,bot,lista_tarefas):
+def task_list(message,bot):
+    lista_tarefas = []    
     try:
-        file = open('tasks.txt','r+')
-        for line in file:
-            line = line.strip()
-            if line not in lista_tarefas:
+        with open('tasks.txt','r+') as file:
+            for line in file:
+                line = line.strip()
                 lista_tarefas.append(line)
-        file.close()
+
         text = "Lista de tarefas:"
         for i in lista_tarefas:
             text = text + '\n'
             text = text + str(i)
     except:
-        text = "Lista de tarefas:"
+        text = "Lista de tarefas vazia."
 
     bot.send_message(message.chat.id, text)
 
