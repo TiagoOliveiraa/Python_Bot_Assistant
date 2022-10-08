@@ -1,0 +1,12 @@
+megane_seguro 15/10/2022
+clio_seguro 20/10/2022
+expert_seguro 31/01/2023
+laguna_seguro 15/01/2023
+megane_oleo 275000
+clio_oleo 280000
+laguna_oleo 190000
+expert_oleo 220000
+megane_insp 17/12/2022
+clio_insp 27/12/2022
+laguna_insp 27/11/2022
+expert_insp 16/11/2022

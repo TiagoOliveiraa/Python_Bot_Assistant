@@ -1,5 +1,6 @@
 import telebot
 from apscheduler.schedulers.background import BackgroundScheduler
+import cars
 #from datetime import datetime
 from task import *
 import time
@@ -13,68 +14,60 @@ bot = telebot.TeleBot(API_KEY)
 
 lista_tarefas = []
 
-#megane_seguro =
 
-def print_teste():
+def TesteDiario():
 
-    bot.send_message(TiagoID,"Isto é uma mensagem de teste")
+    cars.check_dates(bot,TiagoID)
 
-#scheduler = BackgroundScheduler()
-#scheduler.add_job(print_teste,'interval',hours = 24)
-#scheduler.start()
+scheduler = BackgroundScheduler()
+scheduler.add_job(TesteDiario,'cron',hour = 11)
+scheduler.start()
+
 
 
 @bot.message_handler(commands=["megane"])
 def megane(message):
-    text = f"""
-    Renault Megane 2001 1.9 dti 80 cv
-    Condutor: Tiago Oliveira
-    Matricula: 95-69-SA
-    Seguro:
-    Inspeção:
-    Óleo: 
-    """
-
-    bot.send_message(message.chat.id,text)
+    
+    if "seguro" in message.text:
+        cars.change_seguro(bot,message)
+    if "insp" in message.text:
+        cars.change_inspecao(bot,message)
+    if "oleo" in message.text:
+        cars.change_oleo(bot,message)
+    cars.megane(bot,message)
 
 @bot.message_handler(commands=["laguna"])
 def laguna(message):
-    text = f"""
-    Renault Laguna 2011 1.5 dci 110 cv
-    Condutor: Cláudia Oliveira
-    Matricula: 17-19-UZ
-    Seguro:
-    Inspeção:
-    Óleo:
-    """
+    if "seguro" in message.text:
+        cars.change_seguro(bot,message)
+    if "insp" in message.text:
+        cars.change_inspecao(bot,message)
+    if "oleo" in message.text:
+        cars.change_oleo(bot,message)
 
-    bot.send_message(message.chat.id, text)
+    cars.laguna(bot,message)
 
 @bot.message_handler(commands=["clio"])
 def clio(message):
-    text = f"""
-    Renault Clio 2003 1.5 dci 80 cv
-    Condutor: Pedro Oliveira
-    Matricula: 95-69-SA
-    Seguro:
-    Inspeção:
-    Óleo:
-    """
+    if "seguro" in message.text:
+        cars.change_seguro(bot,message)
+    if "insp" in message.text:
+        cars.change_inspecao(bot,message)
+    if "oleo" in message.text:
+        cars.change_oleo(bot,message)
 
-    bot.send_message(message.chat.id, text)
+    cars.clio(bot,message)
 
 @bot.message_handler(commands=["expert"])
 def expert(message):
-    text = f"""
-    Peugeot Expert 2000 2.0 hdi 100 cv
-    Condutor: Pedro Oliveira
-    Matricula: 12-43-TH
-    Seguro:
-    Inspeção:
-    Óleo:
-    """
+    if "seguro" in message.text:
+        cars.change_seguro(bot,message)
+    if "insp" in message.text:
+        cars.change_inspecao(bot,message)
+    if "oleo" in message.text:
+        cars.change_oleo(bot,message)
 
-    bot.send_message(message.chat.id, text)
+    cars.expert(bot,message)
 
 @bot.message_handler(commands=["help"])
 def help(message):
@@ -105,7 +98,6 @@ def carro(message):
     bot.send_message(message.chat.id, text)
 
 
-
 @bot.message_handler(commands=["task"])
 def tasks(message):
 
@@ -131,8 +123,6 @@ def verify(message):
 @bot.message_handler(func=verify)
 def answer(message):
     bot.reply_to(message, f"Não conheço esse comando:\n\n /help para comandos")
-
-#bot.send_message(TiagoID,"Teste de entrada")
 
 bot.polling()
 
