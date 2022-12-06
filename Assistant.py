@@ -92,6 +92,10 @@ def carro(message):
             /clio
         Peugeot:
             /expert
+    Comandos update Carros:
+        /[carro] seguro -> Update data seguro
+        /[carro] insp -> Update data Inspeção
+        /[carro] oleo -> Update KM's Óleo
     """
 
 
@@ -123,6 +127,8 @@ def verify(message):
 @bot.message_handler(func=verify)
 def answer(message):
     bot.reply_to(message, f"Não conheço esse comando:\n\n /help para comandos")
+
+#cars.check_dates(bot,TiagoID)
 
 bot.polling()
 

@@ -391,7 +391,7 @@ def check_dates(bot,TiagoID):
                 
             delta = data - dt.now().date()
             
-            if delta.days <= 30:
+            if delta.days <= 30 and delta.days >= 1:
                 bot.send_message(TiagoID,f"{key} a {delta.days} dias de terminar.")
 
 
